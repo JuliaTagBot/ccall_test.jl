@@ -44,14 +44,17 @@ This is the output I get:
 
 ```julia
 julia> @time test_small_routine(n)
-  0.008211 seconds (6 allocations: 352 bytes)
+  0.006507 seconds (6 allocations: 352 bytes)
 
 julia> @time test_large_routine(n)
-  0.008081 seconds (6 allocations: 352 bytes)
+  0.006300 seconds (6 allocations: 352 bytes)
+
+julia> @time test_array_routine(n)
+  0.028089 seconds (8 allocations: 15.259 MB)
 
 julia> @time test_julia(n)
-  0.003387 seconds (6 allocations: 352 bytes)
+  0.003355 seconds (6 allocations: 352 bytes)
 ```
 
-Both the "small" and "large" fortran subroutines take the same time, whereas the julia function is twice as fast.
+Both the "small" and "large" fortran subroutines take approximately the same time, whereas the julia function is twice as fast. The array function is much slower, perhaps due to memory allocation in the fortran subroutine.
 
