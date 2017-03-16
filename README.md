@@ -34,7 +34,7 @@ n = 1000000
 
 This is the output I get:
 
-
+```julia
 julia> @time test_small_routine(n)
   0.008211 seconds (6 allocations: 352 bytes)
 
@@ -43,6 +43,7 @@ julia> @time test_large_routine(n)
 
 julia> @time test_julia(n)
   0.003387 seconds (6 allocations: 352 bytes)
+```
 
 Both the "small" and "large" fortran subroutines take the same time, whereas the julia function is twice as fast.
 
