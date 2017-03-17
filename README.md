@@ -20,41 +20,25 @@ I have performed the following tests:
 
 using ccall_test
 
-test_small_routine(1)
+using BenchmarkTools
 
-test_large_routine(1)
+n = 1000000;
 
-test_array_routine(1)
+invar = randn(Float64, 1);
+outvar = zeros(Float64, 1);
 
-test_julia(1)
+@benchmark test_small_routine(invar, outvar, n)
 
-n = 1000000
+@benchmark test_large_routine(invar, outvar, n)
 
-@time test_small_routine(n)
+@benchmark test_julia(invar, outvar, n)
 
-@time test_large_routine(n)
+invar = randn(Float64, n);
+outvar = zeros(Float64, n);
 
-@time test_array_routine(n)
-
-@time test_julia(n)
+@benchmark test_array_routine(invar, outvar, n)
 
 ```
 
-This is the output I get:
-
-```julia
-julia> @time test_small_routine(n)
-  0.006507 seconds (6 allocations: 352 bytes)
-
-julia> @time test_large_routine(n)
-  0.006300 seconds (6 allocations: 352 bytes)
-
-julia> @time test_array_routine(n)
-  0.028089 seconds (8 allocations: 15.259 MB)
-
-julia> @time test_julia(n)
-  0.003355 seconds (6 allocations: 352 bytes)
-```
-
-Both the "small" and "large" fortran subroutines take approximately the same time, whereas the julia function is twice as fast. The array function is much slower, perhaps due to memory allocation in the fortran subroutine.
+All fortran subroutines take approximately the same time, whereas the julia function is twice as fast.
 
